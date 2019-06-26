@@ -19,10 +19,9 @@
 <script>
 import books from "@/assets/books.json";
 import BookModal from "@/components/BookModal.vue";
-import { User } from "@/user.js";
-import Request from "request.js";
-import Book from "book.js";
-import Transaction from "transaction.js";
+import User from "@/assets/classes/user.js";
+import Manager from "@/assets/classes/user.js";
+import Book from "@/assets/classes/book.js";
 
 export default {
   name: "Controller",
