@@ -1,0 +1,124 @@
+{
+  "books": [
+    {
+      "ISBN": 1,
+      "nome": "Como Fazer Amigos e Influenciar Pessoas",
+      "autor": "Dale Carnegie",
+      "categoria": "Autoajuda"
+    },
+    {
+      "ISBN": 2,
+      "nome": "Mindset: A Nova Psicologia do Sucesso",
+      "autor": "Carol Dweck",
+      "categoria": "Autoajuda"
+    },
+    {
+      "ISBN": 3,
+      "nome": "Mr. Mercedes",
+      "autor": "Stephen King",
+      "categoria": "Suspense"
+    },
+    {
+      "ISBN": 4,
+      "nome": "Hacking Para Leigos",
+      "autor": "Kevin Beaver",
+      "categoria": "Informativo"
+    },
+    {
+      "ISBN": 5,
+      "nome": "Superinteligência",
+      "autor": "Nick Bostrom",
+      "categoria": "Informativo"
+    },
+    {
+      "ISBN": 6,
+      "nome": "Homo Deus: Uma Breve História do Amanhã",
+      "autor": "Yuval Harari",
+      "categoria": "Informativo"
+    },
+    {
+      "ISBN": 7,
+      "nome": "21 Lições para o Século 21",
+      "autor": "Yuval Harari",
+      "categoria": "Informativo"
+    },
+    {
+      "ISBN": 8,
+      "nome": "Achados e perdidos",
+      "autor": "Stephen King",
+      "categoria": "Suspense"
+    },
+    {
+      "ISBN": 9,
+      "nome": "Como Evitar Preocupacoes E Comecar A Viver",
+      "autor": "Dale Carnegie",
+      "categoria": "Autoajuda"
+    },
+    {
+      "ISBN": 10,
+      "nome": "Harry Potter e a Pedra Filosofal",
+      "autor": "J. K. Rowling",
+      "categoria": "Fantastico"
+    },
+    {
+      "ISBN": 11,
+      "nome": "Harry Potter e a Câmara Secreta",
+      "autor": "J. K. Rowling",
+      "categoria": "Fantastico"
+    },
+    {
+      "ISBN": 12,
+      "nome": "Harry Potter e o Prisioneiro de Azkaban",
+      "autor": "J. K. Rowling",
+      "categoria": "Fantastico"
+    },
+    {
+      "ISBN": 13,
+      "nome": "Harry Potter e o Cálice de Fogo",
+      "autor": "J. K. Rowling",
+      "categoria": "Fantastico"
+    },
+    {
+      "ISBN": 14,
+      "nome": "Harry Potter e a Ordem da Fênix",
+      "autor": "J. K. Rowling",
+      "categoria": "Fantastico"
+    },
+    {
+      "ISBN": 15,
+      "nome": "Harry Potter e o Enigma do Príncipe",
+      "autor": "J. K. Rowling",
+      "categoria": "Fantastico"
+    },
+    {
+      "ISBN": 16,
+      "nome": "Harry Potter e as Relíquias da Morte",
+      "autor": "J. K. Rowling",
+      "categoria": "Fantastico"
+    },
+    {
+      "ISBN": 17,
+      "nome": "Cinquenta Tons de Cinza",
+      "autor": "E. L. James",
+      "categoria": "Romance"
+    },
+    {
+      "ISBN": 18,
+      "nome": "Cinquenta Tons mais Escuros",
+      "autor": "E. L. James",
+      "categoria": "Romance"
+    },
+    {
+      "ISBN": 19,
+      "nome": "Cinquenta Tons de Liberdade",
+      "autor": "E. L. James",
+      "categoria": "Romance"
+    },
+    {
+      "ISBN": 20,
+      "nome": "UML 2 for Dummies",
+      "autor": "Michael Jesse Chonoles",
+      "categoria": "Informativo"
+    }
+  ]
+}
