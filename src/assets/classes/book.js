@@ -11,14 +11,16 @@ class Item {
   constructor(livro, dono) {
     this.book = livro;
     this.owner = dono;
+
+    this.available = true;
   }
 }
 
 class Transaction {
-  constructor(item) {
-    this.doador = doador;
-    this.receptor = receptor;
-    this.livro = livro;
+  constructor(item, recipiente, dataEntrega) {
+    this.item = item;
+    this.receiver = recipiente;
+    this.returnDate = dataEntrega;
 
     this.completed = false;
   }

@@ -1,59 +1,84 @@
 <template>
   <div>
-    <BookModal
-      :showModal="bookModal"
-      :book="selectedBook"
-      @closeModal="CloseBookModal"
-      @livroSolicitado="SolicitaLivro"
-    ></BookModal>
-    <div v-for="book in books" :key="book.ISBN" class="text-center my-3">
-      <b-button
-        v-b-popover.hover="book.autor"
-        :title="book.nome"
-        @click="OpenBookModal(book)"
-      >{{ book.nome }}</b-button>
-    </div>
+    <log-in-modal
+      :showModal="logInModal"
+      :controller="controller"
+      @closeModal="logInModal = false"
+      @sucess="LoginSucess"
+    ></log-in-modal>
+    <b-navbar variant="dark" type="dark">
+      <b-navbar-brand href="#">
+        <img
+          src="@/assets/logo.png"
+          class="d-inline-block align-top"
+          alt="Kitten"
+          width="30"
+          height="30"
+        >
+        BookaBook
+      </b-navbar-brand>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item-dropdown right>
+          <template slot="button-content">
+            <em>Usuário</em>
+          </template>
+          <b-dropdown-item v-if="loggedIn" @click="ShowItems">Ver Livros</b-dropdown-item>
+          <b-dropdown-item v-if="loggedIn" @click="Profile">Perfil</b-dropdown-item>
+          <b-dropdown-item v-if="loggedIn" @click="Signout">Sair</b-dropdown-item>
+          <b-dropdown-item v-if="!loggedIn" @click="Signin">Entrar</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-navbar>
+    <h1 v-if="loginType == 0">Login Aluno</h1>
+    <h1 v-if="loginType == 1">Login Bibliotecario</h1>
+    <h1 v-if="loginType == 2">Login Coordenador</h1>
+    <book-views v-if="loggedIn"/>
   </div>
 </template>
 
 <script>
-import books from "@/assets/books.json";
-import BookModal from "@/components/BookModal.vue";
-import User from "@/assets/classes/user.js";
-import Manager from "@/assets/classes/user.js";
-import Book from "@/assets/classes/book.js";
+import { Controller } from "@/assets/classes/controller.js";
+import LogInModal from "@/components/LogInModal.vue";
+import BookViews from "@/components/BookViews.vue";
 
 export default {
-  name: "Controller",
   components: {
-    BookModal
+    LogInModal,
+    BookViews
   },
-  props: {},
   data() {
     return {
-      books: books.books,
-      users: [],
-      selectedBook: null,
-      bookModal: false
+      controller: null,
+      loggedIn: false,
+      activeUser: null,
+      logInModal: false,
+      loginType: null
     };
   },
   methods: {
-    OpenBookModal(book) {
-      this.selectedBook = book;
-      this.bookModal = true;
+    ShowItems() {},
+    Signout() {
+      this.loggedIn = false;
+      this.activeUser = null;
     },
-    CloseBookModal() {
-      this.bookModal = false;
+    Signin() {
+      this.logInModal = true;
     },
-    SolicitaLivro() {
-      this.$emit("solicitaLivro", this.selectedBook);
+    LoginSucess(type, id) {
+      this.loggedIn = true;
+      this.loginType = type;
+      this.activeUser = id;
+    },
+    Profile() {
+      this.controller.find;
     }
+  },
+  mounted() {
+    this.controller = new Controller();
+    this.controller.Populate();
   }
 };
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-a {
-  color: #42b983;
-}
+
+<style>
 </style>

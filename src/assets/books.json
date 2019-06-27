@@ -119,6 +119,12 @@
       "nome": "UML 2 for Dummies",
       "autor": "Michael Jesse Chonoles",
       "categoria": "Informativo"
+    },
+    {
+      "ISBN": 21,
+      "nome": "After: Depois da verdade",
+      "autor": "Anna Todd",
+      "categoria": "Romance"
     }
   ]
 }
