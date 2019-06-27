@@ -6,7 +6,7 @@
       @closeModal="logInModal = false"
       @sucess="LoginSucess"
     ></log-in-modal>
-    <b-navbar variant="dark" type="dark">
+    <b-navbar variant="dark" type="dark" fixed="top">
       <b-navbar-brand href="#">
         <img
           src="@/assets/logo.png"
