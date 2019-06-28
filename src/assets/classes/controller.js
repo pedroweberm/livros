@@ -316,7 +316,8 @@ class Student extends User {
     this.providedBooks.splice(
       this.providedBooks.indexOf(
         this.providedBooks.find(book => book.isbn === isbn)
-      )
+      ),
+      1
     );
   }
 

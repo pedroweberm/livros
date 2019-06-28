@@ -19,7 +19,7 @@
           <li v-if="!book.available">Disponível: Não</li>
         </ul>
       </div>
-      <b-button class="mt-3" block @click="Select">Solicitar</b-button>
+      <b-button v-if="userType === 0" class="mt-3" block @click="Select">Solicitar</b-button>
       <b-button class="mt-3" block @click="HideModal">Fechar</b-button>
     </b-modal>
   </div>
@@ -36,6 +36,11 @@ export default {
     book: {
       required: true,
       default: null
+    },
+    userType: {
+      type: Number,
+      required: true,
+      default: -1
     }
   },
   methods: {

@@ -1,11 +1,14 @@
 <template>
   <div>
     <BookModal
+      v-if="selectedBook != null"
       :showModal="bookModal"
       :book="selectedBook"
+      :userType="userType"
       @closeModal="CloseBookModal"
       @livroSolicitado="SolicitaLivro"
     ></BookModal>
+    <b-button v-if="userType === 0" variant="success">+ Adicionar Livro</b-button>
     <div v-for="book in books" :key="book.book.isbn" class="text-center my-3">
       <b-button
         v-b-popover.hover="book.book.autor"
@@ -24,6 +27,11 @@ export default {
   props: {
     books: {
       default: null
+    },
+    userType: {
+      type: Number,
+      required: true,
+      default: -1
     }
   },
   components: {

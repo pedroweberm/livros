@@ -10,7 +10,15 @@
     >
       <div class="d-block">
         <ul>
-          <li v-for="book in books" :key="book.isbn">{{ book.titulo }}</li>
+          <li v-for="book in books" :key="book.isbn">
+            <b-row>
+              <b-col sm="9">{{ book.titulo }}</b-col>
+              <b-col sm="3">
+                <b-button size="sm" @click="RemoveBook(book.isbn)" right>Remover</b-button>
+              </b-col>
+            </b-row>
+            <br>
+          </li>
         </ul>
       </div>
       <b-button class="mt-3" block @click="HideModal">Fechar</b-button>
@@ -34,6 +42,9 @@ export default {
   methods: {
     HideModal() {
       this.$emit("closeModal");
+    },
+    RemoveBook(isbn) {
+      this.$emit("removeBook", isbn);
     }
   },
   mounted() {}

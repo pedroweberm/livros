@@ -2,16 +2,24 @@
 <template>
   <div>
     <login-nav
+      v-if="controller != null"
       :controller="controller"
       @login="Login"
       @logout="logged = false"
       @showBooks="userBooks = true"
     />
-    <book-views :books="controller.items" @solicitaLivro="SolicitaLivro" v-if="logged"/>
+    <book-views
+      :userType="loginType"
+      :books="controller.items"
+      @solicitaLivro="SolicitaLivro"
+      v-if="logged"
+    />
     <user-books-modal
+      v-if="logged === true"
       :showModal="userBooks"
       @closeModal="userBooks = false"
       :books="this.controller.GetUserById(this.activeUser).providedBooks"
+      @removeBook="RemoveBook"
     />
   </div>
 </template>
@@ -69,6 +77,12 @@ export default {
       this.loginType = -1;
       this.activeUser = null;
       this.logged = false;
+    },
+    RemoveBook(isbn) {
+      this.controller.RemoveItem(
+        this.controller.GetUserById(this.activeUser),
+        isbn
+      );
     }
   },
   mounted() {
