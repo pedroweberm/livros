@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
+import books from "@/assets/books.json";
 export class Controller {
   constructor() {
     this.coordinators = [];
@@ -87,8 +88,29 @@ export class Controller {
     return -1;
   }
 
+  GetUserById(id) {
+    var stu = this.students.find(user => user.id === id);
+
+    if (this.students.indexOf(stu) != -1) {
+      return stu;
+    } else {
+      var lib = this.librarians.find(user => user.id === id);
+
+      if (this.librarians.indexOf(lib) != -1) {
+        return lib;
+      } else {
+        var cord = this.coordinators.find(user => user.id === id);
+
+        if (this.coordinators.indexOf(cord) != -1) {
+          return cord;
+        }
+      }
+    }
+    return -1;
+  }
+
   Populate() {
-    var cord = new Coordinator(
+    this.AddCoord(
       "_" +
         Math.random()
           .toString(36)
@@ -100,9 +122,7 @@ export class Controller {
       991043374
     );
 
-    this.coordinators.push(cord);
-
-    cord = new Coordinator(
+    this.AddCoord(
       "_" +
         Math.random()
           .toString(36)
@@ -114,9 +134,7 @@ export class Controller {
       985459166
     );
 
-    this.coordinators.push(cord);
-
-    cord = new Coordinator(
+    this.AddCoord(
       "_" +
         Math.random()
           .toString(36)
@@ -128,7 +146,120 @@ export class Controller {
       999999999
     );
 
-    this.coordinators.push(cord);
+    this.AddLibrarian(
+      this.coordinators[0],
+      "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9),
+      "Ana",
+      "ana@gmail.com",
+      "eusouaana",
+      "9",
+      5
+    );
+
+    this.AddLibrarian(
+      this.coordinators[1],
+      "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9),
+      "Joao",
+      "joao@gmail.com",
+      "eusouojoao",
+      "8",
+      4
+    );
+
+    this.AddLibrarian(
+      this.coordinators[2],
+      "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9),
+      "Pimenta",
+      "pimenta@gmail.com",
+      "eusouopimenta",
+      "7",
+      3
+    );
+
+    this.AddSchool(
+      "Colegio mae de deus",
+      "90",
+      this.coordinators[2],
+      "Rua mario totta",
+      65,
+      this.librarians[0]
+    );
+
+    this.AddSchool(
+      "Colegio Joao Pualo I",
+      "77",
+      this.coordinators[0],
+      "Pedra Redonda",
+      99,
+      this.librarians[1]
+    );
+
+    this.AddSchool(
+      "Colegio Marista Rosario",
+      87,
+      this.coordinators[1],
+      "Centro",
+      65,
+      this.librarians[2]
+    );
+
+    this.AddStudent(
+      this.coordinators[0],
+      "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9),
+      "Gustavinho",
+      "lalalasmurfs@gmail.com",
+      "gremio",
+      this.schools[0],
+      "Zona sul"
+    );
+
+    this.AddStudent(
+      this.coordinators[1],
+      "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9),
+      "Pedrinho",
+      "peter.wm@hotmail.com",
+      "inter",
+      this.schools[1],
+      "Zona sull"
+    );
+
+    this.AddStudent(
+      this.coordinators[1],
+      "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9),
+      "Pimentinha",
+      "pimenta@hotmail.com",
+      "reuso",
+      this.schools[2],
+      "Campus do vale"
+    );
+
+    books.books.forEach(book => {
+      this.AddItem(
+        this.students[Math.floor(Math.random() * 3)],
+        book.nome,
+        book.ISBN,
+        book.autor,
+        book.categoria
+      );
+    });
   }
 }
 
@@ -191,6 +322,7 @@ class Student extends User {
 
   WithdrawBook(item, data) {
     var trans = this.school.librarian.RegisterTransaction(item, this, data);
+    item.available = false;
 
     return trans;
   }

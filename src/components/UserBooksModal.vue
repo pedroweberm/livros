@@ -2,7 +2,7 @@
   <div>
     <b-modal
       v-model="showModal"
-      :title="book.book.titulo"
+      title="Meus Livros"
       hide-footer
       centered
       no-close-on-backdrop
@@ -10,16 +10,9 @@
     >
       <div class="d-block">
         <ul>
-          <li>Título: {{ book.book.titulo }}</li>
-          <li>ISBN: {{ book.book.isbn }}</li>
-          <li>Autor: {{ book.book.autor }}</li>
-          <li>Categoria: {{ book.book.categoria }}</li>
-          <li>Dono: {{ book.owner.name }}</li>
-          <li v-if="book.available">Disponível: Sim</li>
-          <li v-if="!book.available">Disponível: Não</li>
+          <li v-for="book in books" :key="book.isbn">{{ book.titulo }}</li>
         </ul>
       </div>
-      <b-button class="mt-3" block @click="Select">Solicitar</b-button>
       <b-button class="mt-3" block @click="HideModal">Fechar</b-button>
     </b-modal>
   </div>
@@ -27,13 +20,13 @@
 
 <script>
 export default {
-  name: "book-modal",
+  name: "user-book-modal",
   props: {
     showModal: {
       required: true,
       default: false
     },
-    book: {
+    books: {
       required: true,
       default: null
     }
@@ -41,10 +34,6 @@ export default {
   methods: {
     HideModal() {
       this.$emit("closeModal");
-    },
-    Select() {
-      this.$emit("livroSolicitado");
-      this.HideModal();
     }
   },
   mounted() {}

@@ -6,29 +6,31 @@
       @closeModal="CloseBookModal"
       @livroSolicitado="SolicitaLivro"
     ></BookModal>
-    <div v-for="book in books" :key="book.ISBN" class="text-center my-3">
+    <div v-for="book in books" :key="book.book.isbn" class="text-center my-3">
       <b-button
-        v-b-popover.hover="book.autor"
-        :title="book.nome"
+        v-b-popover.hover="book.book.autor"
+        :title="book.book.titulo"
         @click="OpenBookModal(book)"
-      >{{ book.nome }}</b-button>
+      >{{ book.book.titulo }}</b-button>
     </div>
   </div>
 </template>
 
 <script>
-import books from "@/assets/books.json";
 import BookModal from "@/components/BookModal.vue";
 
 export default {
   name: "BookViews",
+  props: {
+    books: {
+      default: null
+    }
+  },
   components: {
     BookModal
   },
-  props: {},
   data() {
     return {
-      books: books.books,
       users: [],
       selectedBook: null,
       bookModal: false
@@ -45,7 +47,8 @@ export default {
     SolicitaLivro() {
       this.$emit("solicitaLivro", this.selectedBook);
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -21,7 +21,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #0b0c0f;
   margin-top: 60px;
+  background-color: #a8a8a8;
+  background-image: url("https://www.transparenttextures.com/patterns/arches.png");
 }
 </style>

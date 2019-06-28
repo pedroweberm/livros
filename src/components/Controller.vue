@@ -1,76 +1,74 @@
+/* eslint-disable no-console */
 <template>
   <div>
-    <log-in-modal
-      :showModal="logInModal"
+    <login-nav
       :controller="controller"
-      @closeModal="logInModal = false"
-      @sucess="LoginSucess"
-    ></log-in-modal>
-    <b-navbar variant="dark" type="dark" fixed="top">
-      <b-navbar-brand href="#">
-        <img
-          src="@/assets/logo.png"
-          class="d-inline-block align-top"
-          alt="Kitten"
-          width="30"
-          height="30"
-        >
-        BookaBook
-      </b-navbar-brand>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right>
-          <template slot="button-content">
-            <em>Usuário</em>
-          </template>
-          <b-dropdown-item v-if="loggedIn" @click="ShowItems">Ver Livros</b-dropdown-item>
-          <b-dropdown-item v-if="loggedIn" @click="Profile">Perfil</b-dropdown-item>
-          <b-dropdown-item v-if="loggedIn" @click="Signout">Sair</b-dropdown-item>
-          <b-dropdown-item v-if="!loggedIn" @click="Signin">Entrar</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-navbar>
-    <h1 v-if="loginType == 0">Login Aluno</h1>
-    <h1 v-if="loginType == 1">Login Bibliotecario</h1>
-    <h1 v-if="loginType == 2">Login Coordenador</h1>
-    <book-views v-if="loggedIn"/>
+      @login="Login"
+      @logout="logged = false"
+      @showBooks="userBooks = true"
+    />
+    <book-views :books="controller.items" @solicitaLivro="SolicitaLivro" v-if="logged"/>
+    <user-books-modal
+      :showModal="userBooks"
+      @closeModal="userBooks = false"
+      :books="this.controller.GetUserById(this.activeUser).providedBooks"
+    />
   </div>
 </template>
 
 <script>
-import { Controller } from "@/assets/classes/controller.js";
-import LogInModal from "@/components/LogInModal.vue";
+import LoginNav from "@/components/LoginNav.vue";
 import BookViews from "@/components/BookViews.vue";
+import UserBooksModal from "@/components/UserBooksModal.vue";
+import { Controller } from "@/assets/classes/controller.js";
 
 export default {
+  name: "Controller",
   components: {
-    LogInModal,
-    BookViews
+    LoginNav,
+    BookViews,
+    UserBooksModal
   },
   data() {
     return {
       controller: null,
-      loggedIn: false,
+      logged: false,
+      loginType: -1,
       activeUser: null,
-      logInModal: false,
-      loginType: null
+      userBooks: false
     };
   },
   methods: {
-    ShowItems() {},
-    Signout() {
-      this.loggedIn = false;
-      this.activeUser = null;
+    SolicitaLivro(book) {
+      var receptor = this.controller.GetUserById(this.activeUser);
+      var date = new Date();
+
+      var day = date.getDate() + 7;
+      var month = date.getMonth();
+      var year = date.getFullYear();
+
+      if (day % 31 != day) {
+        day = day % 31;
+        month += 1;
+      }
+      if (month % 12 != month) {
+        month = month % 13;
+        year += 1;
+      }
+
+      var dateStr = day.toString() + month.toString() + year.toString();
+
+      this.controller.AddTransaction(book, receptor, dateStr);
     },
-    Signin() {
-      this.logInModal = true;
-    },
-    LoginSucess(type, id) {
-      this.loggedIn = true;
+    Login(type, id) {
       this.loginType = type;
       this.activeUser = id;
+      this.logged = true;
     },
-    Profile() {
-      this.controller.find;
+    Logout() {
+      this.loginType = -1;
+      this.activeUser = null;
+      this.logged = false;
     }
   },
   mounted() {
