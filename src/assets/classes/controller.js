@@ -338,8 +338,15 @@ class Coordinator extends Manager {
 }
 
 class Librarian extends Manager {
+  constructor(id, nome, email, senha) {
+    super(id, nome, email, senha);
+
+    this.transactions = [];
+  }
+
   RegisterTransaction(item, recipiente, dataEntrega) {
     var trans = new Transaction(item, recipiente, dataEntrega);
+    this.transactions.push(trans);
 
     return trans;
   }

@@ -8,7 +8,7 @@
       @closeModal="CloseBookModal"
       @livroSolicitado="SolicitaLivro"
     ></BookModal>
-    <b-button v-if="userType === 0" variant="success">+ Adicionar Livro</b-button>
+    <b-button v-if="userType === 0" variant="success" @click="CreateBook">+ Adicionar Livro</b-button>
     <div v-for="book in books" :key="book.book.isbn" class="text-center my-3">
       <b-button
         v-b-popover.hover="book.book.autor"
@@ -54,6 +54,9 @@ export default {
     },
     SolicitaLivro() {
       this.$emit("solicitaLivro", this.selectedBook);
+    },
+    CreateBook() {
+      this.$emit("createBook");
     }
   },
   mounted() {}

@@ -7,19 +7,34 @@
       @login="Login"
       @logout="logged = false"
       @showBooks="userBooks = true"
+      @showTransactions="ShowTransactionsModal"
     />
     <book-views
       :userType="loginType"
       :books="controller.items"
       @solicitaLivro="SolicitaLivro"
+      @createBook="CreateBook"
       v-if="logged"
     />
+    <h1 v-else>Faça login para visualizar os livros</h1>
     <user-books-modal
       v-if="logged === true"
       :showModal="userBooks"
       @closeModal="userBooks = false"
       :books="this.controller.GetUserById(this.activeUser).providedBooks"
       @removeBook="RemoveBook"
+    />
+    <transactions-modal
+      v-if="logged === true && loginType != 0"
+      :showModal="transModal"
+      :transactions="this.transactionsToShow"
+      @closeModal="CloseTransModal"
+    />
+
+    <create-book-modal
+      :showModal="createBookModal"
+      @closeModal="createBookModal = false"
+      @bookCreated="BookCreated"
     />
   </div>
 </template>
@@ -28,6 +43,8 @@
 import LoginNav from "@/components/LoginNav.vue";
 import BookViews from "@/components/BookViews.vue";
 import UserBooksModal from "@/components/UserBooksModal.vue";
+import TransactionsModal from "@/components/TransactionsModal.vue";
+import CreateBookModal from "@/components/CreateBookModal.vue";
 import { Controller } from "@/assets/classes/controller.js";
 
 export default {
@@ -35,7 +52,9 @@ export default {
   components: {
     LoginNav,
     BookViews,
-    UserBooksModal
+    UserBooksModal,
+    TransactionsModal,
+    CreateBookModal
   },
   data() {
     return {
@@ -43,7 +62,10 @@ export default {
       logged: false,
       loginType: -1,
       activeUser: null,
-      userBooks: false
+      userBooks: false,
+      transModal: false,
+      transactionsToShow: [],
+      createBookModal: false
     };
   },
   methods: {
@@ -57,14 +79,15 @@ export default {
 
       if (day % 31 != day) {
         day = day % 31;
-        month += 1;
+        month = month + 1;
       }
       if (month % 12 != month) {
         month = month % 13;
         year += 1;
       }
 
-      var dateStr = day.toString() + month.toString() + year.toString();
+      var dateStr =
+        day.toString() + "/" + month.toString() + "/" + year.toString();
 
       this.controller.AddTransaction(book, receptor, dateStr);
     },
@@ -82,6 +105,32 @@ export default {
       this.controller.RemoveItem(
         this.controller.GetUserById(this.activeUser),
         isbn
+      );
+    },
+    ShowTransactionsModal() {
+      if (this.loginType === 1) {
+        this.transactionsToShow = this.controller.GetUserById(
+          this.activeUser
+        ).transactions;
+      } else if (this.loginType === 2) {
+        this.transactionsToShow = this.controller.transactions;
+      }
+      this.transModal = true;
+    },
+    CloseTransModal() {
+      this.transModal = false;
+      this.transactionsToShow = [];
+    },
+    CreateBook() {
+      this.createBookModal = true;
+    },
+    BookCreated(form) {
+      this.controller.AddItem(
+        this.controller.GetUserById(this.activeUser),
+        form.titulo,
+        form.isbn,
+        form.autor,
+        form.categoria
       );
     }
   },

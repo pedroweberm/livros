@@ -22,10 +22,15 @@
           <template slot="button-content">
             <em>{{ this.controller.GetUserById(this.activeUser).name || "Usuário" }}</em>
           </template>
-          <b-dropdown-item v-if="loggedIn" @click="ShowItems">Ver Livros</b-dropdown-item>
+          <b-dropdown-item v-if="loggedIn && loginType === 0" @click="ShowItems">Ver Livros</b-dropdown-item>
+          <b-dropdown-item
+            v-if="loggedIn && (loginType === 1 || loginType === 2)"
+            @click="ShowTransactions"
+          >Ver Transações</b-dropdown-item>
           <b-dropdown-item v-if="loggedIn" @click="Profile">Perfil</b-dropdown-item>
           <b-dropdown-item v-if="loggedIn" @click="Signout">Sair</b-dropdown-item>
           <b-dropdown-item v-if="!loggedIn" @click="Signin">Entrar</b-dropdown-item>
+          <b-dropdown-item v-if="!loggedIn">Cadastrar</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
@@ -76,7 +81,10 @@ export default {
       this.$emit("login", type, id);
     },
     Profile() {
-      this.controller.find;
+      //this.controller.find;
+    },
+    ShowTransactions() {
+      this.$emit("showTransactions", this.loginType);
     }
   },
   mounted() {}

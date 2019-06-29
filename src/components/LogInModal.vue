@@ -20,7 +20,7 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group id="input-group-2" label="Senha:" label-for="input-3">
+          <b-form-group id="input-group-2" label="Senha:" label-for="input-2">
             <b-form-input
               id="input-2"
               type="password"
