@@ -44,9 +44,11 @@ export class Controller {
   }
 
   AddTransaction(item, recipiente, dataEntrega) {
-    var trans = recipiente.WithdrawBook(item, dataEntrega);
+    if (item.available) {
+      var trans = recipiente.WithdrawBook(item, dataEntrega);
 
-    this.transactions.push(trans);
+      this.transactions.push(trans);
+    }
   }
 
   AddItem(student, titulo, isbn, autor, categoria) {
