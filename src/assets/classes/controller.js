@@ -119,9 +119,9 @@ export class Controller {
           .substr(2, 9),
       "Clara Schmidt",
       "clarabschmidt@hotmail.com",
-      "jacelindo",
-      "86031120020",
-      991043374
+      "clara",
+      "5555555",
+      989898
     );
 
     this.AddCoord(
@@ -131,9 +131,9 @@ export class Controller {
           .substr(2, 9),
       "Pedro Weber Mendonca",
       "pedroweberm@gmail.com",
-      "mElancia2",
-      "04690691082",
-      985459166
+      "pedro",
+      "00000000000",
+      987654321
     );
 
     this.AddCoord(
@@ -143,7 +143,7 @@ export class Controller {
           .substr(2, 9),
       "Gustavo Acauan Lorentz",
       "gus.aca.lo@gmail.com",
-      "gremiomortal",
+      "gustavo",
       "69696969669",
       999999999
     );
